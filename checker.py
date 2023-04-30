@@ -39,22 +39,31 @@ class HC22000_Checker:
 
 
     def RunTest(psk, handshake):
-        ssid = bytes.fromhex(handshake.split("*")[5]).decode('utf-8')
-        aNonce = a2b_hex(handshake.split("*")[6])
-        sNonce = a2b_hex(handshake.split("*")[7][34:(34+64)])
-        apMac = a2b_hex(handshake.split("*")[3]) 
-        cliMac = a2b_hex(handshake.split("*")[4]) 
+        if(handshake.split("*")[0] == "WPA"):
+            ssid = bytes.fromhex(handshake.split("*")[5]).decode('utf-8')
+            aNonce = a2b_hex(handshake.split("*")[6])
+            sNonce = a2b_hex(handshake.split("*")[7][34:(34+64)])
+            apMac = a2b_hex(handshake.split("*")[3]) 
+            cliMac = a2b_hex(handshake.split("*")[4]) 
 
-        mic1 = handshake.split("*")[2]
-        data1 = a2b_hex(handshake.split("*")[7])
-        A, B = HC22000_Checker.MakeAB(aNonce, sNonce, apMac, cliMac)
-        mic, ptk, pmk = HC22000_Checker.MakeMIC(psk, ssid, A, B, data1)
-        if(b2a_hex(mic).decode().upper()[:-8] == mic1.upper()):
-            print('MATCH')
-            return True
-        else:
-            print('MISMATCH')
-            return False
+            mic1 = handshake.split("*")[2]
+            data1 = a2b_hex(handshake.split("*")[7])
+            A, B = HC22000_Checker.MakeAB(aNonce, sNonce, apMac, cliMac)
+            mic, ptk, pmk = HC22000_Checker.MakeMIC(psk, ssid, A, B, data1)
+
+            
+            if(handshake.split("*")[1] == "01"):
+                pmkid = handshake.split("*")[2]
+                predictedPMKID = hmac.new(pmk, b'PMK Name' + apMac + cliMac, sha1).digest().hex()[:32]
+                if(predictedPMKID == pmkid):
+                    print('MATCH')
+                    return True
+
+            elif(handshake.split("*")[1] == "02"):
+                if(b2a_hex(mic).decode().upper()[:-8] == mic1.upper()):
+                    print('MATCH')
+                    return True
+        return False
 
 
 
