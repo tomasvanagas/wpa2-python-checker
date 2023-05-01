@@ -56,12 +56,14 @@ class HC22000_Checker:
                 pmkid = handshake.split("*")[2]
                 predictedPMKID = hmac.new(pmk, b'PMK Name' + apMac + cliMac, sha1).digest().hex()[:32]
                 if(predictedPMKID == pmkid):
-                    print('MATCH')
+                    hashcatPrintedOutput = pmk.hex() + "*" + bytes.fromhex(handshake.split("*")[5]).hex() + ":" + psk
+                    print(hashcatPrintedOutput)
                     return True
 
             elif(handshake.split("*")[1] == "02"):
                 if(b2a_hex(mic).decode().upper()[:-8] == mic1.upper()):
-                    print('MATCH')
+                    hashcatPrintedOutput = pmk.hex() + "*" + bytes.fromhex(handshake.split("*")[5]).hex() + ":" + psk
+                    print(hashcatPrintedOutput)
                     return True
         return False
 
