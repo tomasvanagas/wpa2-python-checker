@@ -2,18 +2,18 @@
 
 A simple Python script to demonstrate WPA2 handshake validation using PMKID (Hashcat 22000 format) or 4-way handshake. This tool derives keys, verifies MICs, and attempts to confirm a correct WPA2 passphrase.
 
----
 
 ## Table of Contents
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Example](#example)
+ - [1. Overview](#1-overview)
+ - [2.Features](#2-features)
+ - [3.Preparation](#3-preparation)
+ - [4.Usage](#4-usage)
+ - [5.Example](5-#example)
 
 ---
+<br/><br/>
 
-## Overview
+## 1. Overview
 
 `wpa2-python-checker` is a minimal Python script that can test whether a provided password matches a WPA2 handshake. It demonstrates the following steps:
 
@@ -22,8 +22,9 @@ A simple Python script to demonstrate WPA2 handshake validation using PMKID (Has
 3. Computing the MIC to validate a handshake or verifying PMKID for a PMKID-based attack.
 
 ---
+<br/><br/>
 
-## Features
+## 2. Features
 
 - **PMKID Checking** (Hashcat 22000)  
   Verifies if the provided password is correct by calculating the PMKID.
@@ -35,8 +36,9 @@ A simple Python script to demonstrate WPA2 handshake validation using PMKID (Has
   Only requires a small set of Python libraries (e.g., `hashlib`, `hmac`, `binascii`).
 
 ---
+<br/><br/>
 
-## Preparation
+## 3. Preparation
 
 1. Clone the repository:
    ```bash
@@ -50,8 +52,9 @@ A simple Python script to demonstrate WPA2 handshake validation using PMKID (Has
    ```
    
 ---
+<br/><br/>
 
-## Usage
+## 4. Usage
 
 The project consists of a single file named [`checker.py`](checker.py). Simply run it with Python:
 
@@ -72,8 +75,9 @@ HC22000_Checker.RunTest(password, handshake)
 Feel free to replace `password` and `handshake` with your own test values or incorporate command-line arguments as needed.
 
 ---
+<br/><br/>
 
-## Example
+## 5. Example
 
 1. Edit [`checker.py`](checker.py), modifying the variables at the end of the file:
    ```python
