@@ -42,7 +42,7 @@ A simple Python script to demonstrate WPA2 handshake validation using PMKID (Has
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YourUsername/wpa2-python-checker.git
+   git clone https://github.com/tomasvanagas/wpa2-python-checker.git
    cd wpa2-python-checker
    ```
    
